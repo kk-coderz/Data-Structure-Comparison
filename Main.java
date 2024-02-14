@@ -11,6 +11,9 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main {
     public static void main(String args[]) {
@@ -83,6 +86,7 @@ public class Main {
                             String collectionName = set.getClass().getSimpleName();
                             Functions.recordTime(addRuntimes, collectionName, endTime - startTime);
                         }
+                        break;
                     case "put":
                         for (Map<Integer,Integer> map : maps) {
                             long startTime = System.nanoTime();
@@ -92,6 +96,7 @@ public class Main {
                             String mapName = map.getClass().getSimpleName();
                             Functions.recordTime(addRuntimes, mapName, (endTime - startTime));
                         }
+                        break;
                     case "containsKey":
                         for (Map<Integer,Integer> map : maps) {
                             long startTime = System.nanoTime();
@@ -101,6 +106,7 @@ public class Main {
                             String mapName = map.getClass().getSimpleName();
                             Functions.recordTime(containsRuntimes, mapName, endTime - startTime);
                         }
+                        break;
                     case "contains":
                         for (Collection<Integer> c : collections) {
                             long startTime = System.nanoTime();
@@ -118,6 +124,7 @@ public class Main {
                             String setName = set.getClass().getSimpleName();
                             Functions.recordTime(containsRuntimes, setName, endTime - startTime);
                         }
+                        break;
                     case "remove":
                         for (Collection<Integer> c : collections) {
                             long startTime = System.nanoTime();
@@ -143,6 +150,7 @@ public class Main {
                             String mapName = map.getClass().getSimpleName();
                             Functions.recordTime(removeRuntimes, mapName, endTime - startTime);
                         }
+                        break;
                     case "clear":
                         for (Collection<Integer> c : collections) {
                             long startTime = System.nanoTime();
@@ -168,12 +176,13 @@ public class Main {
                             String mapName = map.getClass().getSimpleName();
                             Functions.recordTime(clearRuntimes, mapName, endTime - startTime);
                         }
+                        break;
                 }
             }
             System.out.printf("Iteration %d done.\n", s + 1);
         }
 
-        // calculate average and output
+        // calculate average and output to csv file
         for (String name : collectionNames) {
             addRuntimes.put(name,addRuntimes.get(name) / sampleSize);
             containsRuntimes.put(name,containsRuntimes.get(name) / sampleSize);
@@ -182,31 +191,56 @@ public class Main {
         }
 
         String[] timedFunctions = {"add","contains","remove","clear"};
-        for (String func : timedFunctions) {
-            if (func == "add") {
-                System.out.println("==Add==");
-                for (String key : collectionNames) {
-                    System.out.println(key + " : " + addRuntimes.get(key));
+        File outputFile = new File("output.csv");
+        try {
+            FileWriter writer = new FileWriter(outputFile);
+            String columnNames = "function," + String.join(",", collectionNames) + "\n";
+            writer.write(columnNames);
+
+            for (String funcName : timedFunctions) {
+                String row = funcName + ",";
+                for (String colName : collectionNames) {
+                    switch (funcName) {
+                        case "add":
+                            row += addRuntimes.get(colName);
+                            if (colName != "TreeMap") {
+                                row += ",";
+                            } else {
+                                row += "\n";
+                            }
+                            break;
+                        case "contains":
+                            row += containsRuntimes.get(colName);
+                            if (colName != "TreeMap") {
+                                row += ",";
+                            } else {
+                                row += "\n";
+                            }
+                            break;
+                        case "remove":
+                            row += removeRuntimes.get(colName);
+                            if (colName != "TreeMap") {
+                                row += ",";
+                            } else {
+                                row += "\n";
+                            }
+                            break;
+                        case "clear":
+                            row += clearRuntimes.get(colName);
+                            if (colName != "TreeMap") {
+                                row += ",";
+                            } else {
+                                row += "\n";
+                            }
+                            break;
+                    }
                 }
+                writer.write(row);
             }
-            else if (func == "contains") {
-                System.out.println("==Contains==");
-                for (String key : collectionNames) {
-                    System.out.println(key + " : " + containsRuntimes.get(key));
-                }
-            }
-            else if (func == "remove") {
-                System.out.println("==Remove==");
-                for (String key : collectionNames) {
-                    System.out.println(key + " : " + removeRuntimes.get(key));
-                }
-            }
-            else {
-                System.out.println("==Clear==");
-                for (String key : collectionNames) {
-                    System.out.println(key + " : " + clearRuntimes.get(key));
-                }
-            }
+            writer.close();
+
+        } catch(IOException error) {
+            System.out.println(error);
         }
     }
 }
