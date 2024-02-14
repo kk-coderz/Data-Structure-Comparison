@@ -1,11 +1,15 @@
 import java.util.*;
 
 class Functions {
+    static LinkedHashSet<Integer> randomValuesForSet = new LinkedHashSet<>();
     public static void loadSet(Collection<Integer> set, int loadSize) {
-        Random randomGenerator = new Random();
-        while (set.size() < loadSize) {
-            set.add(randomGenerator.nextInt(loadSize));
+        if (randomValuesForSet.size() < loadSize) {
+            Random randomGenerator = new Random();
+            while (randomValuesForSet.size() < loadSize) {
+                randomValuesForSet.add(randomGenerator.nextInt(loadSize));
+            }
         }
+        set.addAll(randomValuesForSet);
     }
 
     public static void load(Collection<Integer> collection, int[] randomValues) {
