@@ -1,52 +1,20 @@
-// import java.util.AbstractCollection;
-// import java.util.AbstractMap;
-// import java.util.AbstractSet;
-// import java.util.ArrayDeque;
-// import java.util.ArrayList;
-// import java.util.HashMap;
-// import java.util.HashSet;
-// import java.util.Iterator;
-// import java.util.LinkedHashMap;
-// import java.util.LinkedHashSet;
-// import java.util.LinkedList;
-// import java.util.PriorityQueue;
-// import java.util.Random;
-// import java.util.TreeMap;
-// import java.util.TreeSet;
-// import java.util.List;
-import java.util.*;
-// enum timedFunctions {
-//     ADD {
-//         public <T extends Collection<Integer>> long timer (T collection,int value) {
-//             long startTime = System.nanoTime();
-//             collection.add(value);
-//             long endTime = System.nanoTime();
-//             long executionTime = endTime - startTime;
-//             return executionTime;
-//         }
-//     };
-    
-// }
+import java.util.Collection;
+import java.util.Map;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Random;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-// <T extends AbstractSet<Integer>>
 public class Main {
-    // public static <T extends AbstractSet<Integer>> void printSet(T set) {
-    //     Iterator<Integer> itr = set.iterator();
-    //     while (itr.hasNext()) {
-    //         System.out.println(itr.next());
-    //     }
-    // }
     public static void main(String args[]) {
-        // HashSet<Integer> hashSet = new HashSet<>();
-        // TreeSet<Integer> treeSet = new TreeSet<>();
-        // LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>();
-        // ArrayList<Integer> arrayList = new ArrayList<>();
-        // LinkedList<Integer> linkedList = new LinkedList<>();
-        // ArrayDeque<Integer> deque = new ArrayDeque<>();
-        // PriorityQueue<Integer> pQueue = new PriorityQueue<>();
-        // HashMap<Integer,Integer> hashMap = new HashMap<>();
-        // TreeMap<Integer,Integer> treeMap = new TreeMap<>();
-        // LinkedHashMap<Integer,Integer> linkedHashMap = new LinkedHashMap<>();
+        // Initialize collections for testing
         Collection<Integer>[] collections = new Collection[4];
         Collection<Integer>[] sets = new Collection[3];
         Map<Integer,Integer>[] maps = new Map[3];
@@ -59,17 +27,13 @@ public class Main {
         collections[1] = new LinkedList<>();
         collections[2] = new ArrayDeque<>();
         collections[3] = new PriorityQueue<>();
-        // Collection<Integer>[] collections = {hashSet,treeSet,linkedHashSet,arrayList,linkedList,deque,pQueue};
+
         maps[0] = new HashMap<Integer,Integer>();
         maps[1] = new TreeMap<Integer,Integer>();
         maps[2] = new LinkedHashMap<Integer,Integer>();
 
-        // HashMap<String,HashMap<String,Integer>> runtimes = new HashMap<String,HashMap<String,Integer>>();
-        // runtimes.put("add", new HashMap<String,Integer>());
-        // runtimes.put("contains",new HashMap<String,Integer>());
-        // runtimes.put("remove",new HashMap<String,Integer>());
-        // runtimes.put("clear",new HashMap<String,Integer>());
 
+        // Initialize maps to store different runtimes of tests
         HashMap<String,Double> addRuntimes = new HashMap<>();
         HashMap<String,Double> containsRuntimes = new HashMap<>();
         HashMap<String,Double> removeRuntimes = new HashMap<>();
@@ -78,7 +42,9 @@ public class Main {
         String[] funcNames = {"add","put","contains","containsKey","remove","clear"};
         String[] collectionNames = {"HashSet","TreeSet","LinkedHashSet","ArrayList","LinkedList","PriorityQueue","ArrayDeque","HashMap","LinkedHashMap","TreeMap"};
 
-        for (int s = 0; s < 100; s++) {
+        // Run each test for 100 times
+        int sampleSize = 100;
+        for (int s = 0; s < sampleSize; s++) {
             // create and load the values to collections
             Random rand = new Random();
             int[] randomValues = new int[100000];
@@ -207,11 +173,12 @@ public class Main {
             System.out.printf("Iteration %d done.\n", s + 1);
         }
 
+        // calculate average and output
         for (String name : collectionNames) {
-            addRuntimes.put(name,addRuntimes.get(name) / 100);
-            containsRuntimes.put(name,containsRuntimes.get(name) / 100);
-            removeRuntimes.put(name, containsRuntimes.get(name) / 100);
-            clearRuntimes.put(name,clearRuntimes.get(name) / 100);
+            addRuntimes.put(name,addRuntimes.get(name) / sampleSize);
+            containsRuntimes.put(name,containsRuntimes.get(name) / sampleSize);
+            removeRuntimes.put(name, containsRuntimes.get(name) / sampleSize);
+            clearRuntimes.put(name,clearRuntimes.get(name) / sampleSize);
         }
 
         String[] timedFunctions = {"add","contains","remove","clear"};
