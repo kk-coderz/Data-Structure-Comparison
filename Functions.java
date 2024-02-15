@@ -1,10 +1,10 @@
 import java.util.*;
 
 class Functions {
+    static Random randomGenerator = new Random();
     static LinkedHashSet<Integer> randomValuesForSet = new LinkedHashSet<>();
     public static void loadSet(Collection<Integer> set, int loadSize) {
         if (randomValuesForSet.size() < loadSize) {
-            Random randomGenerator = new Random();
             while (randomValuesForSet.size() < loadSize) {
                 randomValuesForSet.add(randomGenerator.nextInt(loadSize));
             }
@@ -20,13 +20,72 @@ class Functions {
     
     public static void loadMap(Map<Integer,Integer> collection,int[] randomValues) {
         Random randomGenerator = new Random();
-        // Iterator<Integer> iter = randomValuesForSet.iterator();
-        // while (iter.hasNext()) {
-        //     int element = iter.next();
-        //     collection.put(element,randomGenerator.nextInt(100000));
-        // }
         for (int i = 0; i < randomValues.length; i++) {
             collection.put(i, randomGenerator.nextInt(100000));
+        }
+    }
+
+    public static void checkTime(HashMap<String,Double> runtime, Collection<Integer> collection,String funcName, int value) {
+        long startTime;
+        long endTime;
+        String collectionName = collection.getClass().getSimpleName();
+        switch (funcName) {
+            case "add":
+                startTime = System.nanoTime();
+                collection.add(value);
+                endTime = System.nanoTime();
+                recordTime(runtime, collectionName, endTime - startTime);
+                break;
+            case "contains":
+                startTime = System.nanoTime();
+                collection.contains(value);
+                endTime = System.nanoTime();
+                recordTime(runtime, collectionName, endTime - startTime);
+                break;
+            case "remove":
+                startTime = System.nanoTime();
+                collection.remove(value);
+                endTime = System.nanoTime();
+                recordTime(runtime, collectionName, endTime - startTime);
+                break;
+            case "clear":
+                startTime = System.nanoTime();
+                collection.clear();
+                endTime = System.nanoTime();
+                recordTime(runtime, collectionName, endTime - startTime);
+                break;
+        }
+    }
+
+    public static void checkTime(HashMap<String,Double> runtime, Map<Integer,Integer> map,String funcName, int value) {
+        long startTime;
+        long endTime;
+        String mapName = map.getClass().getSimpleName();
+        switch (funcName) {
+            case "add":
+                startTime = System.nanoTime();
+                map.put(value,randomGenerator.nextInt(100000));
+                endTime = System.nanoTime();
+                recordTime(runtime, mapName, endTime - startTime);
+                break;
+            case "contains":
+                startTime = System.nanoTime();
+                map.containsKey(value);
+                endTime = System.nanoTime();
+                recordTime(runtime, mapName, endTime - startTime);
+                break;
+            case "remove":
+                startTime = System.nanoTime();
+                map.remove(value);
+                endTime = System.nanoTime();
+                recordTime(runtime, mapName, endTime - startTime);
+                break;
+            case "clear":
+                startTime = System.nanoTime();
+                map.clear();
+                endTime = System.nanoTime();
+                recordTime(runtime, mapName, endTime - startTime);
+                break;
         }
     }
 
