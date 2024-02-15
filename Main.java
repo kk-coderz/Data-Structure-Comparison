@@ -77,10 +77,10 @@ public class Main {
                     Functions.checkAndRecordTime(runtimes.get(func), c, func, rand.nextInt(sampleSize));
                 }
                 for (Collection<Integer> set : sets) {
-                    Functions.checkAndRecordTime(runtimes.get(func), set, func, randomValues[rand.nextInt(sampleSize)]);
+                    Functions.checkAndRecordTime(runtimes.get(func), set, func, rand.nextInt(sampleSize));
                 }
                 for (Map<Integer,Integer> map : maps) {
-                    Functions.checkAndRecordTime(runtimes.get(func), map, func, randomValues[rand.nextInt(sampleSize)]);
+                    Functions.checkAndRecordTime(runtimes.get(func), map, func, rand.nextInt(sampleSize));
                 }
             }
             System.out.printf("Iteration %d done.\n", s + 1);
