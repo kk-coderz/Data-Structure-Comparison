@@ -90,7 +90,7 @@ public class Main {
         for (String name : collectionNames) {
             addRuntimes.put(name,addRuntimes.get(name) / sampleSize);
             containsRuntimes.put(name,containsRuntimes.get(name) / sampleSize);
-            removeRuntimes.put(name, containsRuntimes.get(name) / sampleSize);
+            removeRuntimes.put(name, removeRuntimes.get(name) / sampleSize);
             clearRuntimes.put(name,clearRuntimes.get(name) / sampleSize);
         }
 
