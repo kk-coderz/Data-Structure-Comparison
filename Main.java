@@ -18,22 +18,24 @@ import java.io.IOException;
 public class Main {
     public static void main(String args[]) {
         // Initialize collections for testing
-        Collection<Integer>[] collections = new Collection[4];
-        Collection<Integer>[] sets = new Collection[3];
-        Map<Integer,Integer>[] maps = new Map[3];
+        Collection<Integer>[] collections = new Collection[]{
+            new ArrayList<>(),
+            new LinkedList<>(),
+            new ArrayDeque<>(),
+            new PriorityQueue<>()
+        };
 
-        sets[0] = new HashSet<>();
-        sets[1] = new TreeSet<>();
-        sets[2] = new LinkedHashSet<>();
+        Collection<Integer>[] sets = new Collection[]{
+            new HashSet<>(),
+            new TreeSet<>(),
+            new LinkedHashSet<>()
+        };
 
-        collections[0] = new ArrayList<>();
-        collections[1] = new LinkedList<>();
-        collections[2] = new ArrayDeque<>();
-        collections[3] = new PriorityQueue<>();
-
-        maps[0] = new HashMap<Integer,Integer>();
-        maps[1] = new TreeMap<Integer,Integer>();
-        maps[2] = new LinkedHashMap<Integer,Integer>();
+        Map<Integer, Integer>[] maps = new Map[]{
+            new HashMap<>(),
+            new TreeMap<>(),
+            new LinkedHashMap<>()
+        };
 
 
         // Initialize maps to store different runtimes of tests
