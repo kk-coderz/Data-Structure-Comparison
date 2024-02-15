@@ -17,11 +17,16 @@ class Functions {
             collection.add(randomValues[i]);
         }
     }
-
+    
     public static void loadMap(Map<Integer,Integer> collection,int[] randomValues) {
         Random randomGenerator = new Random();
+        // Iterator<Integer> iter = randomValuesForSet.iterator();
+        // while (iter.hasNext()) {
+        //     int element = iter.next();
+        //     collection.put(element,randomGenerator.nextInt(100000));
+        // }
         for (int i = 0; i < randomValues.length; i++) {
-            collection.put(randomValues[i], randomGenerator.nextInt(100000));
+            collection.put(i, randomGenerator.nextInt(100000));
         }
     }
 
