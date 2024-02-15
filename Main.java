@@ -108,37 +108,18 @@ public class Main {
                     switch (funcName) {
                         case "add":
                             row += addRuntimes.get(colName);
-                            if (colName != "TreeMap") {
-                                row += ",";
-                            } else {
-                                row += "\n";
-                            }
                             break;
                         case "contains":
                             row += containsRuntimes.get(colName);
-                            if (colName != "TreeMap") {
-                                row += ",";
-                            } else {
-                                row += "\n";
-                            }
                             break;
                         case "remove":
                             row += removeRuntimes.get(colName);
-                            if (colName != "TreeMap") {
-                                row += ",";
-                            } else {
-                                row += "\n";
-                            }
                             break;
                         case "clear":
                             row += clearRuntimes.get(colName);
-                            if (colName != "TreeMap") {
-                                row += ",";
-                            } else {
-                                row += "\n";
-                            }
                             break;
                     }
+                    row += (colName != "TreeMap") ? "," : "\n";
                 }
                 writer.write(row);
             }
