@@ -25,7 +25,7 @@ class Functions {
         }
     }
 
-    public static void checkTime(HashMap<String,Double> runtime, Collection<Integer> collection,String funcName, int value) {
+    public static void checkAndRecordTime(HashMap<String,Double> runtime, Collection<Integer> collection,String funcName, int value) {
         long startTime;
         long endTime;
         String collectionName = collection.getClass().getSimpleName();
@@ -57,7 +57,7 @@ class Functions {
         }
     }
 
-    public static void checkTime(HashMap<String,Double> runtime, Map<Integer,Integer> map,String funcName, int value) {
+    public static void checkAndRecordTime(HashMap<String,Double> runtime, Map<Integer,Integer> map,String funcName, int value) {
         long startTime;
         long endTime;
         String mapName = map.getClass().getSimpleName();

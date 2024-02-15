@@ -71,18 +71,16 @@ public class Main {
                 Functions.loadMap(m, randomValues);
             }
 
-            // int checkForContains = randomValues[rand.nextInt(100000)];
-            // int checkForRemove = randomValues[rand.nextInt(100000)];
-
+            // check runtime for different collections for different test functions and record the times
             for (String func : funcNames) {
                 for (Collection<Integer> c : collections) {
-                    Functions.checkTime(runtimes.get(func), c, func, rand.nextInt(sampleSize));
+                    Functions.checkAndRecordTime(runtimes.get(func), c, func, rand.nextInt(sampleSize));
                 }
                 for (Collection<Integer> set : sets) {
-                    Functions.checkTime(runtimes.get(func), set, func, randomValues[rand.nextInt(sampleSize)]);
+                    Functions.checkAndRecordTime(runtimes.get(func), set, func, randomValues[rand.nextInt(sampleSize)]);
                 }
                 for (Map<Integer,Integer> map : maps) {
-                    Functions.checkTime(runtimes.get(func), map, func, randomValues[rand.nextInt(sampleSize)]);
+                    Functions.checkAndRecordTime(runtimes.get(func), map, func, randomValues[rand.nextInt(sampleSize)]);
                 }
             }
             System.out.printf("Iteration %d done.\n", s + 1);
