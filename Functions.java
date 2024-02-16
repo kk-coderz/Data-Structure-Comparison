@@ -26,8 +26,8 @@ class Functions {
     }
 
     public static void checkAndRecordTime(HashMap<String,Double> runtime, Collection<Integer> collection,String funcName, int value) {
-        long startTime;
-        long endTime;
+        long startTime = 0;
+        long endTime = 0;
         String collectionName = collection.getClass().getSimpleName();
         switch (funcName) {
             case "add":
@@ -55,8 +55,8 @@ class Functions {
     }
 
     public static void checkAndRecordTime(HashMap<String,Double> runtime, Map<Integer,Integer> map,String funcName, int value) {
-        long startTime;
-        long endTime;
+        long startTime = 0;
+        long endTime = 0;
         String mapName = map.getClass().getSimpleName();
         switch (funcName) {
             case "add":
