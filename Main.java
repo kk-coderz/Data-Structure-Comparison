@@ -71,32 +71,29 @@ public class Main {
                 Functions.loadMap(m, randomValues);
             }
 
-            // check runtime for different collections for different test functions and record the times
+            // check runtime for different collections for different test functions and add them up to calculate the average later
             for (String func : funcNames) {
                 for (Collection<Integer> c : collections) {
-                    Functions.checkAndRecordTime(runtimes.get(func), c, func, rand.nextInt(sampleSize));
+                    Functions.checkAndRecordTime(runtimes.get(func), c, func, rand.nextInt(100000));
                 }
                 for (Collection<Integer> set : sets) {
-                    Functions.checkAndRecordTime(runtimes.get(func), set, func, rand.nextInt(sampleSize));
+                    Functions.checkAndRecordTime(runtimes.get(func), set, func, rand.nextInt(100000));
                 }
                 for (Map<Integer,Integer> map : maps) {
-                    Functions.checkAndRecordTime(runtimes.get(func), map, func, rand.nextInt(sampleSize));
+                    Functions.checkAndRecordTime(runtimes.get(func), map, func, rand.nextInt(100000));
                 }
             }
             System.out.printf("Iteration %d done.\n", s + 1);
         }
 
-        // calculate average and output to csv file
+        // for each collection , for each test function, divide the total time by sampleSize for the average
         for (String name : collectionNames) {
-            // addRuntimes.put(name,addRuntimes.get(name) / sampleSize);
-            // containsRuntimes.put(name,containsRuntimes.get(name) / sampleSize);
-            // removeRuntimes.put(name, removeRuntimes.get(name) / sampleSize);
-            // clearRuntimes.put(name,clearRuntimes.get(name) / sampleSize);
             for (String func : funcNames) {
                 runtimes.get(func).put(name, runtimes.get(func).get(name) / sampleSize);
             }
         }
 
+        // output the time data into a csv file
         File outputFile = new File("output.csv");
         try {
             FileWriter writer = new FileWriter(outputFile);
@@ -106,20 +103,6 @@ public class Main {
             for (String funcName : funcNames) {
                 String row = funcName + ",";
                 for (String colName : collectionNames) {
-                    // switch (funcName) {
-                    //     case "add":
-                    //         row += addRuntimes.get(colName);
-                    //         break;
-                    //     case "contains":
-                    //         row += containsRuntimes.get(colName);
-                    //         break;
-                    //     case "remove":
-                    //         row += removeRuntimes.get(colName);
-                    //         break;
-                    //     case "clear":
-                    //         row += clearRuntimes.get(colName);
-                    //         break;
-                    // }
                     row += runtimes.get(funcName).get(colName);
                     row += (colName != "TreeMap") ? "," : "\n";
                 }
