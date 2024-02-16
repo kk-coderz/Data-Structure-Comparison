@@ -88,10 +88,13 @@ public class Main {
 
         // calculate average and output to csv file
         for (String name : collectionNames) {
-            addRuntimes.put(name,addRuntimes.get(name) / sampleSize);
-            containsRuntimes.put(name,containsRuntimes.get(name) / sampleSize);
-            removeRuntimes.put(name, removeRuntimes.get(name) / sampleSize);
-            clearRuntimes.put(name,clearRuntimes.get(name) / sampleSize);
+            // addRuntimes.put(name,addRuntimes.get(name) / sampleSize);
+            // containsRuntimes.put(name,containsRuntimes.get(name) / sampleSize);
+            // removeRuntimes.put(name, removeRuntimes.get(name) / sampleSize);
+            // clearRuntimes.put(name,clearRuntimes.get(name) / sampleSize);
+            for (String func : funcNames) {
+                runtimes.get(func).put(name, runtimes.get(func).get(name) / sampleSize);
+            }
         }
 
         File outputFile = new File("output.csv");
@@ -103,20 +106,21 @@ public class Main {
             for (String funcName : funcNames) {
                 String row = funcName + ",";
                 for (String colName : collectionNames) {
-                    switch (funcName) {
-                        case "add":
-                            row += addRuntimes.get(colName);
-                            break;
-                        case "contains":
-                            row += containsRuntimes.get(colName);
-                            break;
-                        case "remove":
-                            row += removeRuntimes.get(colName);
-                            break;
-                        case "clear":
-                            row += clearRuntimes.get(colName);
-                            break;
-                    }
+                    // switch (funcName) {
+                    //     case "add":
+                    //         row += addRuntimes.get(colName);
+                    //         break;
+                    //     case "contains":
+                    //         row += containsRuntimes.get(colName);
+                    //         break;
+                    //     case "remove":
+                    //         row += removeRuntimes.get(colName);
+                    //         break;
+                    //     case "clear":
+                    //         row += clearRuntimes.get(colName);
+                    //         break;
+                    // }
+                    row += runtimes.get(funcName).get(colName);
                     row += (colName != "TreeMap") ? "," : "\n";
                 }
                 writer.write(row);
