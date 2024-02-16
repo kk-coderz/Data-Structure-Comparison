@@ -3,6 +3,7 @@ import java.util.*;
 class Functions {
     static Random randomGenerator = new Random();
     static LinkedHashSet<Integer> randomValuesForSet = new LinkedHashSet<>();
+    
     public static void loadSet(Collection<Integer> set, int loadSize) {
         if (randomValuesForSet.size() < loadSize) {
             while (randomValuesForSet.size() < loadSize) {
@@ -19,7 +20,6 @@ class Functions {
     }
     
     public static void loadMap(Map<Integer,Integer> collection,int[] randomValues) {
-        Random randomGenerator = new Random();
         for (int i = 0; i < randomValues.length; i++) {
             collection.put(i, randomGenerator.nextInt(100000));
         }
